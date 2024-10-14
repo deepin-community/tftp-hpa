@@ -1,0 +1,23 @@
+[Unit]
+Description=tftpd-hpa TFTP Server
+Documentation=man:in.tftpd
+After=network-online.target
+
+[Service]
+Type=forking
+EnvironmentFile=/etc/default/tftpd-hpa
+ExecStart=/usr/sbin/in.tftpd --listen --user $TFTP_USERNAME --address $TFTP_ADDRESS $TFTP_OPTIONS $TFTP_DIRECTORY
+ProtectHome=yes
+ProtectSystem=full
+ProtectHostname=yes
+ProtectClock=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+PrivateDevices=yes
+PrivateTmp=yes
+RestrictAddressFamilies=AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target
